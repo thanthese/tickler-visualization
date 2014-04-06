@@ -9,7 +9,7 @@ This project converts a [tickler file][tf] that looks roughly like this:
     14.04.12s not an appointment
     14.04.14m #appt (through 16) long running event
 
-into something that looks more like this:
+into something that looks more like a traditional calendar:
 
     sun 3/30   mon 3/31   tue 4/1    wed 4/2    thu 4/3    fri 4/4    TODAY!
 
