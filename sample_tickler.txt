@@ -1,0 +1,6 @@
+14.04.06u nothing special
+14.04.07m not an appointment
+14.04.08t #appt something special to do
+14.04.10r #bday john smith
+14.04.12s not an appointment
+14.04.14m #appt (through 16) long running event
