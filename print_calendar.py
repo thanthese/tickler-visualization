@@ -84,5 +84,5 @@ def _print_week_summary(index, sunday, w):
         print "----/ key /".ljust(width, '-')
         for k in keystrs:
             print k
-        print "".ljust(width, '-')
+        print "/ key /----".rjust(width, '-')
         print
