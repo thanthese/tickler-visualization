@@ -36,18 +36,18 @@ into something that looks more like this:
 
 The general form is `date type through time description`, where
 
-- date :: takes the form `YY.MM.DD` (plus anything else with no whitespace)
+- **date**: takes the form `YY.MM.DD` (plus anything else with no whitespace)
 
-- type :: takes the form `#what` where `what` is the type of event (`bday`, `anniversary`,
+- *type*: takes the form `#what` where `what` is the type of event (`bday`, `anniversary`,
 `holiday`, etc...). This will be from the short description.
 
-- through :: a special string of the form `(through N..)` or `(-N..)`, where `N` is the day
+- *through*: a special string of the form `(through N..)` or `(-N..)`, where `N` is the day
 of the month and `..` can be anything. Defines how events repeat (from this day *through until* this day).
 Note that `N` cannot be a full month or more away.
 
-- time :: by convention, something like `5:30pm` goes here
+- *time*: by convention, something like `5:30pm` goes here
 
-- description :: description of event.
+- *description*: description of event.
 
 By convention the whole line is less than 80 characters.
 
