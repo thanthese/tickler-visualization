@@ -61,7 +61,16 @@ def _day_line(index, date, lineid, w, h):
         return "[{}]".format(", ".join(ids)).ljust(w)
 
     event = event_list[lineid]
-    return "{}: {}".format(event.id, event.desc)[0:w - 1].ljust(w)
+    format = lambda s: s.format(event.id, event.desc)[0:w - 1].ljust(w)
+    if not event.is_through():
+        return format("{}: {}")
+    if event.is_through_beginning():
+        return format("{}>: {}")
+    if event.is_through_middle():
+        return format("<{}>: {}")
+    if event.is_through_end():
+        return format("<{}: {}")
+    return "ERROR".ljust(w)
 
 
 def _print_week_summary(index, sunday, w):
@@ -74,3 +83,4 @@ def _print_week_summary(index, sunday, w):
         for k in keystrs:
             print k
         print "".ljust(width, '-')
+        print

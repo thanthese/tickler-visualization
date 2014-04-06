@@ -1,44 +1,59 @@
 import datetime
 import re
+import copy
 
-through_pattern = "\(through (\d+)\w*\) "
+_THROUGH_PATTERN = "\((through |-)(\d+)\w*\)"
 
 
-def load_events(path):
+def _load_events(path):
     with open(path) as f:
         lines = filter(lambda l: "#" in l, f.readlines())
-    return [Event(i, l) for i, l in enumerate(lines)]
+    return [_Event(i, l) for i, l in enumerate(lines)]
 
 
-def build_date(datestr):
+def _build_date(datestr):
     year = int(datestr[0:2])
     month = int(datestr[3:5])
     day = int(datestr[6:8])
     return datetime.date(2000 + year, month, day)
 
 
-def build_through(desc):
-    through = re.match(through_pattern, desc)
+def _build_through(desc):
+    through = re.match(_THROUGH_PATTERN, desc)
     if through is None:
         return None
-    else:
-        return int(through.group(1))
+    return int(through.group(2))
 
 
-class Event():
+class _Event():
     def __init__(self, id, line):
         datestr, type, desc = line.split(' ', 2)
-        self.date = build_date(datestr)
+        self.date = _build_date(datestr)
         self.type = type[1:]
-        self.through = build_through(desc)
-        self.desc = re.sub(through_pattern, "", desc)
+        self.desc = re.sub(_THROUGH_PATTERN, "", desc)
         self.id = id
+        self.through = _build_through(desc)
+        self._original_date = self.date
 
-    def __repr__(self):
-        return "({}, {}, {}, {})".format(self.date, self.type, self.desc, self.through)
+    def set_date(self, date):
+        self.date = date
+
+    def is_through(self):
+        return self.through is not None
+
+    def is_through_beginning(self):
+        return self.is_through() and self.date == self._original_date
+
+    def is_through_middle(self):
+        return (self.is_through()
+                and not self.is_through_beginning()
+                and not self.is_through_end())
+
+    def is_through_end(self):
+        return self.is_through() and self.date.day == self.through
 
 
-def _build_events_index(events):
+def _build_index(events):
     index = {}
     for e in events:
         if e.date in index:
@@ -48,6 +63,21 @@ def _build_events_index(events):
     return index
 
 
+def _add_through_events(events):
+    one_day = datetime.timedelta(days=1)
+    through_events = []
+    for e in events:
+        if e.is_through():
+            date = e.date
+            while date.day != e.through:
+                new_e = copy.copy(e)
+                new_e.date = date + one_day
+                through_events.append(new_e)
+                date += one_day
+    return through_events + events
+
+
 def build_events_index(path):
-    events = load_events(path)[0:5]  # remove range
-    return _build_events_index(events)
+    events = _load_events(path)
+    events = _add_through_events(events)
+    return _build_index(events)
