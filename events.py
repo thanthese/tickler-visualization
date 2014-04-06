@@ -78,6 +78,10 @@ def _add_through_events(events):
 
 
 def build_events_index(path):
+    """Builds an events index from the path to a tickler file.
+
+    An events index is a dictionary mapping dates to a list of
+    all the events that occur on those dates."""
     events = _load_events(path)
     events = _add_through_events(events)
     return _build_index(events)

@@ -25,6 +25,8 @@ def _flatten(list_of_lists):
 
 
 def print_calendar(events_index, w, h):
+    """Takes an events index and the cell width and height."""
+
     min_date = min(events_index.keys() + [datetime.date.today()])
     max_date = max(events_index.keys())
     min_sun = _min_sunday(min_date)
@@ -67,7 +69,7 @@ def _day_line(index, date, lineid, w, h):
     if event.is_through_beginning():
         return format("{}>: {}")
     if event.is_through_middle():
-        return format("<{}>: {}")
+        return format("-{}-: {}")
     if event.is_through_end():
         return format("<{}: {}")
     return "ERROR".ljust(w)

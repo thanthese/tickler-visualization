@@ -4,7 +4,7 @@ This project converts a [tickler file][tf] that looks roughly like this:
 
     14.04.06u nothing special
     14.04.07m not an appointment
-    14.04.08t #appt something special to do
+    14.04.08t #appt 6pm something special to do
     14.04.10r #bday john smith
     14.04.12s not an appointment
     14.04.14m #appt (through 16) long running event
@@ -16,11 +16,11 @@ into something that looks more like this:
 
 
     sun 4/6    mon 4/7    tue 4/8    wed 4/9    thu 4/10   fri 4/11   sat 4/12
-                          0: somethi            1: john sm
+                          0: 6pm som            1: john sm
 
 
     ----/ key /------------------------------------------------------------------
-    [0]: #appt something special to do
+    [0]: #appt 6pm something special to do
     [1]: #bday john smith
     -----------------------------------------------------------------------------
 
@@ -36,18 +36,18 @@ into something that looks more like this:
 
 The general form is `date type through time description`, where
 
-- **date**: takes the form `YY.MM.DD` (plus anything else with no whitespace)
+- **date**: Takes the form `YY.MM.DD` (plus anything else with no whitespace).
 
-- **type**: takes the form `#what` where `what` is the type of event (`bday`, `anniversary`,
-`holiday`, etc...). This will be from the short description.
+- **type**: Takes the form `#what` where `what` is the type of event (`bday`, `anniversary`,
+`holiday`, etc...). This will be snipped from the short description.
 
-- **through**: a special string of the form `(through N..)` or `(-N..)`, where `N` is the day
+- **through**: A special string of the form `(through N..)` or `(-N..)`, where `N` is the day
 of the month and `..` can be anything. Defines how events repeat (from this day *through until* this day).
-Note that `N` cannot be a full month or more away.
+Note that `N` cannot be a full month or more away. Snipped from the short and key descriptions.
 
-- **time**: by convention, something like `5:30pm` goes here
+- **time**: By convention, something like `5:30pm` goes here.
 
-- **description**: description of event.
+- **description**: Description of event.
 
 By convention the whole line is less than 80 characters.
 
