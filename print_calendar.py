@@ -42,7 +42,7 @@ def print_calendar(events_index, w, h):
 def _day_header(day, w):
     if day == datetime.date.today():
         return "TODAY!".ljust(w)
-    return ("{} {}/{}".format(_WEEKDAY[day.weekday()], day.month, day.day)).ljust(w)
+    return "{} {}/{}".format(_WEEKDAY[day.weekday()], day.month, day.day).ljust(w)
 
 
 def _day_line(index, date, lineid, w, h):
