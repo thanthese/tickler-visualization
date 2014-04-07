@@ -2,7 +2,7 @@ import datetime
 import re
 import copy
 
-_THROUGH_PATTERN = "\((through |-)(\d+)\w*\)"
+_THROUGH_PATTERN = "\((through |-)(\d+)\w*\) "
 
 
 def _load_events(path):
